@@ -54,7 +54,7 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _App = __webpack_require__(199);
+	var _App = __webpack_require__(172);
 
 	var _App2 = _interopRequireDefault(_App);
 
@@ -21430,7 +21430,292 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 172 */,
+/* 172 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _axios = __webpack_require__(173);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _SelectDate = __webpack_require__(200);
+
+	var _SelectDate2 = _interopRequireDefault(_SelectDate);
+
+	var _Item = __webpack_require__(198);
+
+	var _Item2 = _interopRequireDefault(_Item);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var App = _react2.default.createClass({
+	  displayName: 'App',
+	  getInitialState: function getInitialState() {
+	    return {
+	      "stock": [],
+	      "new_item": {
+	        "id": undefined,
+	        "name": "",
+	        "description": "",
+	        "price": undefined,
+	        "date_available": {
+	          "month": "",
+	          "day": "",
+	          "year": ""
+	        },
+	        "taxable": true
+	      }
+	    };
+	  },
+	  handleChangeValue: function handleChangeValue(event) {
+	    var new_item = this.state.new_item;
+
+	    if (event.target.name.indexOf('.') !== -1) {
+	      var arr = event.target.name.split('.');
+	      var a = arr[0];
+	      var b = arr[1];
+
+	      new_item[a][b] = event.target.value;
+	      this.setState({ new_item: new_item });
+	    } else {
+	      new_item[event.target.name] = event.target.value;
+	      this.setState({ new_item: new_item });
+	    }
+	  },
+	  loadStockData: function loadStockData() {
+	    var that = this;
+	    _axios2.default.get('/getStock').then(function (response) {
+	      that.setState({ stock: response.data });
+	    });
+	  },
+	  componentDidMount: function componentDidMount() {
+	    this.loadStockData();
+	  },
+	  addStockItem: function addStockItem(event) {
+	    // var ele = document.getElementById('hidethis');
+	    // console.log(ele)
+	    if (document.getElementById('hidethis').className.match('show-form')) {
+	      document.getElementById('hidethis').className = 'hide-form';
+	    } else {
+	      document.getElementById('hidethis').className = 'show-form';
+	    }
+	  },
+	  submitNewStockItem: function submitNewStockItem(event) {
+	    event.preventDefault();
+	    document.getElementById('hidethis').className = 'hide-form';
+
+	    var that = this;
+	    _axios2.default.post('/addStockItem', {
+	      params: [{
+	        id: "",
+	        name: this.state.new_item.name,
+	        description: this.state.new_item.description,
+	        price: this.state.new_item.price,
+	        date_available: {
+	          month: this.state.new_item.date_available.month,
+	          day: this.state.new_item.date_available.day,
+	          year: this.state.new_item.date_available.year
+	        },
+	        taxable: "yes"
+	      }]
+	    }).then(function (response) {
+	      // that.setState({ stock: response.data });
+	      // console.log('ADDED STOCK ITEM: ', response.data);
+	      that.setState({ stock: response.data });
+	    });
+	  },
+	  render: function render() {
+	    var _this = this;
+
+	    if (this.state.stock.length > 0) {
+
+	      // SET DAYS
+	      var daysOptions = [];
+	      for (var day = 1; day < 31; day++) {
+	        daysOptions.push(_react2.default.createElement(
+	          'option',
+	          { value: day, key: day },
+	          day
+	        ));
+	      }
+
+	      var yearsOptions = [];
+	      for (var year = 2016; year < 2021; year++) {
+	        yearsOptions.push(_react2.default.createElement(
+	          'option',
+	          { value: year, key: year },
+	          year
+	        ));
+	      }
+
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          'Stock List'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          {
+	            type: 'button',
+	            id: 'btn-edit',
+	            onClick: this.addStockItem },
+	          'Add Stock Item'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { id: 'hidethis', className: 'hide-form', onSubmit: this.submitNewStockItem },
+	          _react2.default.createElement(
+	            'form',
+	            null,
+	            _react2.default.createElement('input', {
+	              type: 'text',
+	              name: 'name',
+	              placeholder: 'Item Name',
+	              value: this.state.new_item.name,
+	              onChange: this.handleChangeValue
+	            }),
+	            _react2.default.createElement('input', {
+	              type: 'text',
+	              name: 'description',
+	              placeholder: 'Description',
+	              value: this.state.new_item.description,
+	              onChange: this.handleChangeValue
+	            }),
+	            _react2.default.createElement('input', {
+	              type: 'text',
+	              name: 'price',
+	              placeholder: 'Price',
+	              value: this.state.new_item.price,
+	              onChange: this.handleChangeValue
+	            }),
+	            _react2.default.createElement(
+	              'div',
+	              null,
+	              _react2.default.createElement(_SelectDate2.default, {
+	                key: 'month-select',
+	                valueD: this.state.new_item.date_available.month,
+	                nameD: 'date_available.month',
+	                onChangeD: this.handleChangeValue
+	              }),
+	              _react2.default.createElement('input', {
+	                className: 'date-day',
+	                type: 'text',
+	                name: 'date_available.day',
+	                placeholder: 'DD',
+	                value: this.state.new_item.date_available.day,
+	                onChange: this.handleChangeValue
+	              }),
+	              _react2.default.createElement(
+	                'select',
+	                { value: this.state.new_item.date_available.year, name: 'date_available.year', onChange: this.handleChangeValue },
+	                _react2.default.createElement(
+	                  'option',
+	                  { value: '' },
+	                  '-- Year --'
+	                ),
+	                yearsOptions
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'select',
+	              { value: this.state.new_item.taxable, name: 'date_available', onChange: this.handleChangeValue },
+	              _react2.default.createElement(
+	                'option',
+	                { value: '' },
+	                '-- Taxable --'
+	              ),
+	              _react2.default.createElement(
+	                'option',
+	                { value: 'yes' },
+	                'yes'
+	              ),
+	              _react2.default.createElement(
+	                'option',
+	                { value: 'no' },
+	                'no'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { type: 'submit', className: 'btn btn-secondary' },
+	              'Add Item'
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'table',
+	          { className: 'stock-data-table' },
+	          _react2.default.createElement(
+	            'thead',
+	            null,
+	            _react2.default.createElement(
+	              'tr',
+	              null,
+	              _react2.default.createElement(
+	                'th',
+	                null,
+	                'Item Name'
+	              ),
+	              _react2.default.createElement(
+	                'th',
+	                null,
+	                'Description'
+	              ),
+	              _react2.default.createElement(
+	                'th',
+	                null,
+	                'Price'
+	              ),
+	              _react2.default.createElement(
+	                'th',
+	                null,
+	                'Date Available'
+	              ),
+	              _react2.default.createElement(
+	                'th',
+	                null,
+	                'Is Taxable'
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'tbody',
+	            null,
+	            this.state.stock.map(function (item) {
+	              return _react2.default.createElement(_Item2.default, {
+	                key: item.id,
+	                item: item,
+	                dateSelect: _this.state.monthSelect
+	              });
+	            })
+	          )
+	        )
+	      );
+	    }
+
+	    return _react2.default.createElement(
+	      'p',
+	      null,
+	      'Loading...'
+	    );
+	  }
+	});
+
+	exports.default = App;
+
+/***/ },
 /* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -22925,39 +23210,93 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _SelectDate = __webpack_require__(200);
+
+	var _SelectDate2 = _interopRequireDefault(_SelectDate);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Item = _react2.default.createClass({
 	  displayName: 'Item',
+	  changeDateAvailable: function changeDateAvailable(event) {
+	    event.preventDefault();
+	    console.log('button: ', event.target);
+	  },
 	  render: function render() {
-	    console.log('props', this.props);
+	    // SET DAYS
+	    var daysOptions = [];
+	    for (var day = 1; day < 31; day++) {
+	      daysOptions.push(_react2.default.createElement(
+	        'option',
+	        { value: day, key: day },
+	        day
+	      ));
+	    }
+
+	    var yearsOptions = [];
+	    for (var year = 2016; year < 2021; year++) {
+	      yearsOptions.push(_react2.default.createElement(
+	        'option',
+	        { value: year, key: year },
+	        year
+	      ));
+	    }
+
 	    return _react2.default.createElement(
-	      'ul',
+	      'tr',
 	      null,
 	      _react2.default.createElement(
-	        'li',
+	        'td',
 	        null,
 	        this.props.item.name
 	      ),
 	      _react2.default.createElement(
-	        'li',
+	        'td',
 	        null,
 	        this.props.item.description
 	      ),
 	      _react2.default.createElement(
-	        'li',
+	        'td',
 	        null,
+	        '$ ',
 	        this.props.item.price
 	      ),
 	      _react2.default.createElement(
-	        'li',
+	        'td',
 	        null,
-	        this.props.item.date_available
+	        _react2.default.createElement(_SelectDate2.default, {
+	          key: this.props.item.id
+	        }),
+	        _react2.default.createElement(
+	          'select',
+	          { value: this.props.item.date_available.day, name: 'date_available.day' },
+	          _react2.default.createElement(
+	            'option',
+	            { value: '' },
+	            '-- Day --'
+	          ),
+	          daysOptions
+	        ),
+	        _react2.default.createElement(
+	          'select',
+	          { value: '', name: 'date_available.year' },
+	          _react2.default.createElement(
+	            'option',
+	            { value: '' },
+	            '-- Year --'
+	          ),
+	          yearsOptions
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: this.changeDateAvailable },
+	          'update'
+	        )
 	      ),
 	      _react2.default.createElement(
-	        'li',
+	        'td',
 	        null,
-	        this.props.item.taxable ? 'yes' : 'no'
+	        this.props.item.taxable === 'yes' ? 'yes' : 'no'
 	      )
 	    );
 	  }
@@ -22967,6 +23306,54 @@
 
 /***/ },
 /* 199 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var monthSelect = exports.monthSelect = {
+	  "1": "January",
+	  "2": "February",
+	  "3": "March",
+	  "4": "April",
+	  "5": "May",
+	  "6": "June",
+	  "7": "July",
+	  "8": "August",
+	  "9": "September",
+	  "10": "October",
+	  "11": "November",
+	  "12": "December"
+	};
+
+	/*
+	  30 days
+	  Apr
+	  June
+	  SEpt
+	  Nov
+
+	  31 days
+	  Jan
+	  Mar
+	  May
+	  July
+	  August
+	  Oct
+	  Deve
+
+
+	  28 days
+	  February
+
+
+
+	*/
+
+/***/ },
+/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22979,63 +23366,39 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _axios = __webpack_require__(173);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
-	var _Item = __webpack_require__(198);
-
-	var _Item2 = _interopRequireDefault(_Item);
+	var _dateSelect = __webpack_require__(199);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var App = _react2.default.createClass({
-	  displayName: 'App',
+	var SelectDate = _react2.default.createClass({
+	  displayName: 'SelectDate',
 	  getInitialState: function getInitialState() {
 	    return {
-	      stock: []
+	      "monthSelect": _dateSelect.monthSelect
 	    };
 	  },
-	  loadCommentsFromServer: function loadCommentsFromServer() {
-	    return _axios2.default.get('/getStock');
-	  },
-	  componentDidMount: function componentDidMount() {
-	    var that = this;
-	    // this.loadCommentsFromServer()
-	    _axios2.default.get('/getStock').then(function (response) {
-	      that.setState({ stock: response.data });
-	    });
-	  },
 	  render: function render() {
-	    console.log('=====> ', this.state.stock);
-
-	    if (this.state.stock.length > 0) {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'h3',
-	          null,
-	          'Stock List'
-	        ),
-	        this.state.stock.map(function (item) {
-	          return _react2.default.createElement(_Item2.default, {
-	            key: item.name,
-	            item: item
-	          });
-	        })
-	      );
-	    }
-
+	    var item = this.state.monthSelect;
 	    return _react2.default.createElement(
-	      'p',
-	      null,
-	      'Loading...'
+	      'select',
+	      { value: this.props.valueD, name: this.props.nameD, onChange: this.props.onChangeD },
+	      _react2.default.createElement(
+	        'option',
+	        { value: '' },
+	        '-- Month --'
+	      ),
+	      Object.keys(item).map(function (key) {
+	        return _react2.default.createElement(
+	          'option',
+	          { value: key },
+	          item[key]
+	        );
+	      })
 	    );
 	  }
 	});
 
-	exports.default = App;
+	exports.default = SelectDate;
 
 /***/ }
 /******/ ]);
