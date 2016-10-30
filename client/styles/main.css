@@ -6,7 +6,7 @@ body {
 
 body {
   font-family: Open Sans,Arial,Helvetica,sans-serif;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 header {
@@ -31,6 +31,7 @@ header .add-item {
 button {
   cursor: pointer;
   color: #999;
+  font-weight: bold;
   background: #f2f3f4;
   border: 1px solid #999;
   border-radius: 10px;
@@ -41,17 +42,36 @@ button:hover {
   background: #999;
 }
 
-/*.table-data thead,
-.table-data tbody {
-  display: block;
-}*/
+#add-item td {
+  background: green;
+}
+
+#add-item select {
+  width: 70px;
+}
+
+#add-item input {
+  width: 80%;
+  border: 1px solid #999;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+#add-item .form-price {
+  width: 50px;
+}
+
+.btn-add-item {
+  margin-left: 5px;
+}
 
 .hide-form {
   display: none;
 }
 
 .show-form {
-  display: block;
+  /*display: block;*/
+  display : table-row;
 }
 
 .scroll-area {
@@ -84,34 +104,33 @@ table.table-data {
   border-bottom: 1px solid #999;
 }
 
-.btn-edit-date {
-  float: right;
+
+.table-data select {
+  width: 58px;
+  margin: 0px 2px;
 }
 
-.form {
+.table-data .monthSelect {
+  width: 50px;
+}
+
+.btn-edit-date {
+  margin-left: 10px;
+}
+
+/*.form {
   margin-top: 10px;
   border: 1px solid #999;
-  display: none;
 }
 
 .form input {
   border: 1px solid #999;
-  /*margin: 5px 10px;*/
+  margin: 5px 10px;
   padding: 5px 10px;
   border-radius: 5px;
 }
+
 .form td {
   padding: 0;
-}
+}*/
 
-th, td {
- /* width: 20%;*/
-}
-
-table,
-tr,
-th,
-td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}

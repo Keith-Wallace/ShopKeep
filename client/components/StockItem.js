@@ -12,6 +12,7 @@ const StockItem = React.createClass({
             defaultValue={this.props.data.available_date.month}
             name="available_date.month"
             onChange={this.handleChangeValue}
+            className="monthSelect"
           >
             <option value="">- Month -</option>
             <option value="January">January</option>
