@@ -1,6 +1,47 @@
 import React from 'react';
+import axios from 'axios';
 
 const StockItem = React.createClass({
+  getInitialState() {
+    return {
+      "available_date": {
+        "month": this.props.data.available_date.month,
+        "day": this.props.data.available_date.day,
+        "year": this.props.data.available_date.year
+      }
+    }
+  },
+
+  handleChangeValue(event) {
+    // console.log(event.target.value)
+    var available_date = this.state.available_date;
+    available_date[event.target.name] = event.target.value;
+    this.setState({available_date: available_date});
+  },
+
+  // reviseAvailableDate(event) {
+  //   console.log('yes', event.target)
+  // },
+
+  reviseAvailableDate(event) {
+    event.preventDefault();
+    
+    // var that = this;
+    axios.post('/updateItem', {
+      params: [{
+        id: this.props.data.id,
+        available_date: {
+          month: this.state.available_date.month,
+          day: this.state.available_date.day,
+          year: this.state.available_date.year
+        }
+      }]
+    })
+    .then(function(response) {
+      console.log(response.data);
+    });
+  },
+
   render() {
     return (
       <tr>
@@ -9,8 +50,8 @@ const StockItem = React.createClass({
         <td>${this.props.data.price}</td>
         <td>
           <select
-            defaultValue={this.props.data.available_date.month}
-            name="available_date.month"
+            defaultValue={this.state.available_date.month}
+            name="month"
             onChange={this.handleChangeValue}
             className="monthSelect"
           >
@@ -29,8 +70,8 @@ const StockItem = React.createClass({
             <option value="December">December</option>
           </select>
           <select
-            defaultValue={this.props.data.available_date.day}
-            name="available_date.day"
+            defaultValue={this.state.available_date.day}
+            name=".day"
             onChange={this.handleChangeValue}
           >
             <option value="">- Day -</option>
@@ -67,8 +108,8 @@ const StockItem = React.createClass({
             <option value="31">31</option>
           </select>
           <select
-            defaultValue={this.props.data.available_date.year}
-            name="available_date.year"
+            defaultValue={this.state.available_date.year}
+            name="year"
             onChange={this.handleChangeValue}
           >
             <option value="">- Year -</option>
@@ -78,7 +119,7 @@ const StockItem = React.createClass({
             <option value="2019">2019</option>
             <option value="2020">2020</option>
           </select>
-          <button className="btn-edit-date">EDIT</button>
+          <button className="btn-edit-date" onClick={this.reviseAvailableDate}>EDIT</button>
         </td>
         <td>{this.props.data.taxable}</td>
       </tr>

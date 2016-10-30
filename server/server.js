@@ -16,12 +16,16 @@ app.post('/addStockItem', function(req, res) {
   var addDataObj = req.body.params;
   var JSONData = JSON.parse(fs.readFileSync('./data/stock-data.json', 'utf8'));
 
+  // GET NEXT ID NUMBER
+  var nextID = Math.max.apply(Math,JSONData.map(function(o){return o.id;}))
+  addDataObj[0].id = ++nextID;
+
   addDataObj.map(function(item) {
     JSONData.push(item);
     console.log('==> JSONData', JSONData)
   });
 
-  fs.writeFileSync('./data/stock-data.json', JSON.stringify(JSONData), 'utf-8', function (err) {
+  fs.writeFileSync('./data/stock-data.json', JSON.stringify(JSONData, null, 2), 'utf-8', function (err) {
     if (err) {
       console.error(err);
     }
@@ -29,32 +33,29 @@ app.post('/addStockItem', function(req, res) {
   var sendJSON = JSON.parse(fs.readFileSync('./data/stock-data.json', 'utf8'));
 
   res.send(sendJSON);
-
 });
 
-// app.post('/addStockItem', function(req, res) {
-//   var obj = req.body.params;
-//   console.log('obj', obj)
-//   var JSONData = JSON.parse(fs.readFileSync('./data/stock.json', 'utf8'));
+app.post('/updateItem', function(req, res) {
+  var updateDataObj = req.body.params;
+  var JSONData = JSON.parse(fs.readFileSync('./data/stock-data.json', 'utf8'));
 
-//   // GET NEXT ID NUMBER
-//   var nextID = Math.max.apply(Math,JSONData.map(function(o){return o.id;}))
-//   obj[0].id = ++nextID;
+  for(var key in JSONData) {
+    if(JSONData[key].id === updateDataObj[0].id) {
+      console.log()
+      JSONData[key].available_date.month = updateDataObj[0].available_date.month;
+      JSONData[key].available_date.day = updateDataObj[0].available_date.day;
+      JSONData[key].available_date.year = updateDataObj[0].available_date.year;
+    }
+  }
 
-//   obj.map(function(item) {
-//     JSONData.push(item);
-//     console.log('==> JSONData', JSONData)
-//   });
+  fs.writeFileSync('./data/stock-data.json', JSON.stringify(JSONData, null, 2), 'utf-8', function (err) {
+    if (err) {
+      console.error(err);
+    }
+  });
 
-//   fs.writeFileSync('./data/stock.json', JSON.stringify(JSONData), 'utf-8', function (err) {
-//     if (err) {
-//       console.error('Crap happens');
-//     }
-//   }); 
-//   var new_obj = JSON.parse(fs.readFileSync('./data/stock.json', 'utf8'));
-
-//   res.send(new_obj);
-// });
+  res.send('SUCCESS');
+});
 
 
 app.use(express.static(__dirname + '/../client/'));

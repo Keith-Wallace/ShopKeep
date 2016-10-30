@@ -21486,10 +21486,6 @@
 
 	    this.setState({ new_item: new_item });
 	  },
-	  addNewItem: function addNewItem(event) {
-	    event.preventDefault();
-	    console.log('ADD NEW ITEM');
-	  },
 	  loadStockData: function loadStockData() {
 	    var that = this;
 	    _axios2.default.get('/getStockData').then(function (response) {
@@ -21531,7 +21527,6 @@
 	    });
 	  },
 	  render: function render() {
-	    var key_counter = 0;
 	    return _react2.default.createElement(
 	      'div',
 	      null,
@@ -21947,7 +21942,7 @@
 	          ),
 	          this.state.stock.map(function (item) {
 	            return _react2.default.createElement(_StockItem2.default, {
-	              key: key_counter++,
+	              key: item.id,
 	              data: item
 	            });
 	          })
@@ -23444,7 +23439,7 @@
 /* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -23454,321 +23449,363 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _axios = __webpack_require__(173);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var StockItem = _react2.default.createClass({
-	  displayName: "StockItem",
+	  displayName: 'StockItem',
+	  getInitialState: function getInitialState() {
+	    return {
+	      "available_date": {
+	        "month": this.props.data.available_date.month,
+	        "day": this.props.data.available_date.day,
+	        "year": this.props.data.available_date.year
+	      }
+	    };
+	  },
+	  handleChangeValue: function handleChangeValue(event) {
+	    // console.log(event.target.value)
+	    var available_date = this.state.available_date;
+	    available_date[event.target.name] = event.target.value;
+	    this.setState({ available_date: available_date });
+	  },
+
+
+	  // reviseAvailableDate(event) {
+	  //   console.log('yes', event.target)
+	  // },
+
+	  reviseAvailableDate: function reviseAvailableDate(event) {
+	    event.preventDefault();
+
+	    // var that = this;
+	    _axios2.default.post('/updateItem', {
+	      params: [{
+	        id: this.props.data.id,
+	        available_date: {
+	          month: this.state.available_date.month,
+	          day: this.state.available_date.day,
+	          year: this.state.available_date.year
+	        }
+	      }]
+	    }).then(function (response) {
+	      console.log(response.data);
+	    });
+	  },
 	  render: function render() {
 	    return _react2.default.createElement(
-	      "tr",
+	      'tr',
 	      null,
 	      _react2.default.createElement(
-	        "td",
+	        'td',
 	        null,
 	        this.props.data.name
 	      ),
 	      _react2.default.createElement(
-	        "td",
+	        'td',
 	        null,
 	        this.props.data.description
 	      ),
 	      _react2.default.createElement(
-	        "td",
+	        'td',
 	        null,
-	        "$",
+	        '$',
 	        this.props.data.price
 	      ),
 	      _react2.default.createElement(
-	        "td",
+	        'td',
 	        null,
 	        _react2.default.createElement(
-	          "select",
+	          'select',
 	          {
-	            defaultValue: this.props.data.available_date.month,
-	            name: "available_date.month",
+	            defaultValue: this.state.available_date.month,
+	            name: 'month',
 	            onChange: this.handleChangeValue,
-	            className: "monthSelect"
+	            className: 'monthSelect'
 	          },
 	          _react2.default.createElement(
-	            "option",
-	            { value: "" },
-	            "- Month -"
+	            'option',
+	            { value: '' },
+	            '- Month -'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "January" },
-	            "January"
+	            'option',
+	            { value: 'January' },
+	            'January'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "February" },
-	            "February"
+	            'option',
+	            { value: 'February' },
+	            'February'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "March" },
-	            "March"
+	            'option',
+	            { value: 'March' },
+	            'March'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "April" },
-	            "April"
+	            'option',
+	            { value: 'April' },
+	            'April'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "May" },
-	            "May"
+	            'option',
+	            { value: 'May' },
+	            'May'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "June" },
-	            "June"
+	            'option',
+	            { value: 'June' },
+	            'June'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "July" },
-	            "July"
+	            'option',
+	            { value: 'July' },
+	            'July'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "August" },
-	            "August"
+	            'option',
+	            { value: 'August' },
+	            'August'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "September" },
-	            "September"
+	            'option',
+	            { value: 'September' },
+	            'September'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "October" },
-	            "October"
+	            'option',
+	            { value: 'October' },
+	            'October'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "November" },
-	            "November"
+	            'option',
+	            { value: 'November' },
+	            'November'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "December" },
-	            "December"
+	            'option',
+	            { value: 'December' },
+	            'December'
 	          )
 	        ),
 	        _react2.default.createElement(
-	          "select",
+	          'select',
 	          {
-	            defaultValue: this.props.data.available_date.day,
-	            name: "available_date.day",
+	            defaultValue: this.state.available_date.day,
+	            name: '.day',
 	            onChange: this.handleChangeValue
 	          },
 	          _react2.default.createElement(
-	            "option",
-	            { value: "" },
-	            "- Day -"
+	            'option',
+	            { value: '' },
+	            '- Day -'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "1" },
-	            "1"
+	            'option',
+	            { value: '1' },
+	            '1'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "2" },
-	            "2"
+	            'option',
+	            { value: '2' },
+	            '2'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "3" },
-	            "3"
+	            'option',
+	            { value: '3' },
+	            '3'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "4" },
-	            "4"
+	            'option',
+	            { value: '4' },
+	            '4'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "5" },
-	            "5"
+	            'option',
+	            { value: '5' },
+	            '5'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "6" },
-	            "6"
+	            'option',
+	            { value: '6' },
+	            '6'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "7" },
-	            "7"
+	            'option',
+	            { value: '7' },
+	            '7'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "8" },
-	            "8"
+	            'option',
+	            { value: '8' },
+	            '8'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "9" },
-	            "9"
+	            'option',
+	            { value: '9' },
+	            '9'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "10" },
-	            "10"
+	            'option',
+	            { value: '10' },
+	            '10'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "11" },
-	            "11"
+	            'option',
+	            { value: '11' },
+	            '11'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "12" },
-	            "12"
+	            'option',
+	            { value: '12' },
+	            '12'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "13" },
-	            "13"
+	            'option',
+	            { value: '13' },
+	            '13'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "14" },
-	            "14"
+	            'option',
+	            { value: '14' },
+	            '14'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "15" },
-	            "15"
+	            'option',
+	            { value: '15' },
+	            '15'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "16" },
-	            "16"
+	            'option',
+	            { value: '16' },
+	            '16'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "17" },
-	            "17"
+	            'option',
+	            { value: '17' },
+	            '17'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "18" },
-	            "18"
+	            'option',
+	            { value: '18' },
+	            '18'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "19" },
-	            "19"
+	            'option',
+	            { value: '19' },
+	            '19'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "20" },
-	            "20"
+	            'option',
+	            { value: '20' },
+	            '20'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "21" },
-	            "21"
+	            'option',
+	            { value: '21' },
+	            '21'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "22" },
-	            "22"
+	            'option',
+	            { value: '22' },
+	            '22'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "23" },
-	            "23"
+	            'option',
+	            { value: '23' },
+	            '23'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "24" },
-	            "24"
+	            'option',
+	            { value: '24' },
+	            '24'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "25" },
-	            "25"
+	            'option',
+	            { value: '25' },
+	            '25'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "26" },
-	            "26"
+	            'option',
+	            { value: '26' },
+	            '26'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "27" },
-	            "27"
+	            'option',
+	            { value: '27' },
+	            '27'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "28" },
-	            "28"
+	            'option',
+	            { value: '28' },
+	            '28'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "29" },
-	            "29"
+	            'option',
+	            { value: '29' },
+	            '29'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "30" },
-	            "30"
+	            'option',
+	            { value: '30' },
+	            '30'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "31" },
-	            "31"
+	            'option',
+	            { value: '31' },
+	            '31'
 	          )
 	        ),
 	        _react2.default.createElement(
-	          "select",
+	          'select',
 	          {
-	            defaultValue: this.props.data.available_date.year,
-	            name: "available_date.year",
+	            defaultValue: this.state.available_date.year,
+	            name: 'year',
 	            onChange: this.handleChangeValue
 	          },
 	          _react2.default.createElement(
-	            "option",
-	            { value: "" },
-	            "- Year -"
+	            'option',
+	            { value: '' },
+	            '- Year -'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "2016" },
-	            "2016"
+	            'option',
+	            { value: '2016' },
+	            '2016'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "2017" },
-	            "2017"
+	            'option',
+	            { value: '2017' },
+	            '2017'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "2018" },
-	            "2018"
+	            'option',
+	            { value: '2018' },
+	            '2018'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "2019" },
-	            "2019"
+	            'option',
+	            { value: '2019' },
+	            '2019'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "2020" },
-	            "2020"
+	            'option',
+	            { value: '2020' },
+	            '2020'
 	          )
 	        ),
 	        _react2.default.createElement(
-	          "button",
-	          { className: "btn-edit-date" },
-	          "EDIT"
+	          'button',
+	          { className: 'btn-edit-date', onClick: this.reviseAvailableDate },
+	          'EDIT'
 	        )
 	      ),
 	      _react2.default.createElement(
-	        "td",
+	        'td',
 	        null,
 	        this.props.data.taxable
 	      )

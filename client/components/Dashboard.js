@@ -37,11 +37,6 @@ const Dashboard = React.createClass({
     this.setState({new_item: new_item});
   },
 
-  addNewItem(event) {
-    event.preventDefault();
-    console.log('ADD NEW ITEM');
-  },
-
   loadStockData() {
     var that = this;
     axios.get('/getStockData')
@@ -89,7 +84,6 @@ const Dashboard = React.createClass({
   },
 
   render() {
-    var key_counter = 0;
     return(
       <div>
         <header>
@@ -227,7 +221,7 @@ const Dashboard = React.createClass({
             {
               this.state.stock.map((item) => 
                 <StockItem
-                  key={key_counter++}
+                  key={item.id}
                   data={item}
                 />
               )
