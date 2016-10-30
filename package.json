@@ -4,11 +4,7 @@
   "description": "Stock inventory application",
   "main": "index.js",
   "scripts": {
-<<<<<<< HEAD
     "start": "nodemon ./server/server.js",
-=======
-    "start": "nodemon server.js",
->>>>>>> e048f553a0d59eee3a282a80012d2c294e63d83d
     "webpack": "webpack --progress --colors --watch"
   },
   "repository": {

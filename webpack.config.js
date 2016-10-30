@@ -1,15 +1,8 @@
 var config = {
-<<<<<<< HEAD
   entry: './client/components/Main.js',
   output: {
     path:'./client/scripts/',
     filename: 'bundle.js',
-=======
-  entry: './main.js',
-  output: {
-    path:'./',
-    filename: 'index.js',
->>>>>>> e048f553a0d59eee3a282a80012d2c294e63d83d
   },
 
   devServer: {
