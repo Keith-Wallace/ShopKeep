@@ -1,0 +1,136 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Open Sans,Arial,Helvetica,sans-serif;
+  font-size: 14px;
+}
+
+header {
+  height: 40px;
+  background: rgb(82, 94, 113);
+  position: relative;
+}
+
+header .logo {
+  /*display: inline-block;*/
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+header .add-item {
+  float: right;
+  transform: translate(-25%, 50%);
+}
+
+button {
+  cursor: pointer;
+  color: #999;
+  font-weight: bold;
+  background: #f2f3f4;
+  border: 1px solid #999;
+  border-radius: 10px;
+}
+
+button:hover {
+  color: #f2f3f4;
+  background: #999;
+}
+
+#add-item td {
+  background: green;
+}
+
+#add-item select {
+  width: 70px;
+}
+
+#add-item input {
+  width: 80%;
+  border: 1px solid #999;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+#add-item .form-price {
+  width: 50px;
+}
+
+.btn-add-item {
+  margin-left: 5px;
+}
+
+.hide-form {
+  display: none;
+}
+
+.show-form {
+  /*display: block;*/
+  display : table-row;
+}
+
+.scroll-area {
+  height: 205px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+table.table-data {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-data th {
+  background: #999;
+  text-align: left;
+}
+
+.table-data th,
+.table-data td {
+  padding: 10px 20px;
+}
+
+.table-data tr {
+  border-bottom: 1px solid #999;
+}
+
+.table-data td {
+  background: #f2f3f4;
+  border-bottom: 1px solid #999;
+}
+
+
+.table-data select {
+  width: 58px;
+  margin: 0px 2px;
+}
+
+.table-data .monthSelect {
+  width: 50px;
+}
+
+.btn-edit-date {
+  margin-left: 10px;
+}
+
+/*.form {
+  margin-top: 10px;
+  border: 1px solid #999;
+}
+
+.form input {
+  border: 1px solid #999;
+  margin: 5px 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.form td {
+  padding: 0;
+}*/
+

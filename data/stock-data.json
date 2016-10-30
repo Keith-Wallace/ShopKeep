@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "Item Name",
+    "description": "This is the item description",
+    "price": 99.99,
+    "available_date": {
+      "month": "June",
+      "day": "20",
+      "year": "2017"
+    },
+    "taxable": "YES"
+  },
+  {
+    "id": 2,
+    "name": "Item Name",
+    "description": "This is the item description",
+    "price": 99.99,
+    "available_date": {
+      "month": "October",
+      "day": "21",
+      "year": "2016"
+    },
+    "taxable": "YES"
+  },
+  {
+    "id": 3,
+    "name": "Item Name",
+    "description": "This is the item description",
+    "price": 99.99,
+    "available_date": {
+      "month": "October",
+      "day": "22",
+      "year": "2016"
+    },
+    "taxable": "YES"
+  },
+  {
+    "id": 4,
+    "name": "Item Name",
+    "description": "This is the item description",
+    "price": 99.99,
+    "available_date": {
+      "month": "October",
+      "day": "23",
+      "year": "2016"
+    },
+    "taxable": "YES"
+  },
+  {
+    "id": 5,
+    "name": "Item Name",
+    "description": "This is the item description",
+    "price": 99.99,
+    "available_date": {
+      "month": "October",
+      "day": "24",
+      "year": "2016"
+    },
+    "taxable": "YES"
+  },
+  {
+    "id": 6,
+    "name": "Item Name",
+    "description": "This is the item description",
+    "price": 99.99,
+    "available_date": {
+      "month": "October",
+      "day": "25",
+      "year": "2016"
+    },
+    "taxable": "YES"
+  }
+]

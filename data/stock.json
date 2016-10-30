@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "Item Name 1",
+    "description": "This is the description of Item 1",
+    "price": 999.99,
+    "date_available": {
+      "month": "10",
+      "day": "31",
+      "year": "2016"
+    },
+    "taxable": "yes"
+  },
+  {
+    "id": 2,
+    "name": "Item Name 2",
+    "description": "This is the description of Item 2",
+    "price": 999.99,
+    "date_available": {
+      "month": "10",
+      "day": "31",
+      "year": "2016"
+    },
+    "taxable": "yes"
+  },
+  {
+    "id": 3,
+    "name": "Item Name 3",
+    "description": "This is the description of Item 3",
+    "price": 999.99,
+    "date_available": {
+      "month": "10",
+      "day": "31",
+      "year": "2016"
+    },
+    "taxable": "no"
+  }
+]
