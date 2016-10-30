@@ -1,0 +1,117 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Open Sans,Arial,Helvetica,sans-serif;
+  font-size: 16px;
+}
+
+header {
+  height: 40px;
+  background: rgb(82, 94, 113);
+  position: relative;
+}
+
+header .logo {
+  /*display: inline-block;*/
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+header .add-item {
+  float: right;
+  transform: translate(-25%, 50%);
+}
+
+button {
+  cursor: pointer;
+  color: #999;
+  background: #f2f3f4;
+  border: 1px solid #999;
+  border-radius: 10px;
+}
+
+button:hover {
+  color: #f2f3f4;
+  background: #999;
+}
+
+/*.table-data thead,
+.table-data tbody {
+  display: block;
+}*/
+
+.hide-form {
+  display: none;
+}
+
+.show-form {
+  display: block;
+}
+
+.scroll-area {
+  height: 205px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+table.table-data {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-data th {
+  background: #999;
+  text-align: left;
+}
+
+.table-data th,
+.table-data td {
+  padding: 10px 20px;
+}
+
+.table-data tr {
+  border-bottom: 1px solid #999;
+}
+
+.table-data td {
+  background: #f2f3f4;
+  border-bottom: 1px solid #999;
+}
+
+.btn-edit-date {
+  float: right;
+}
+
+.form {
+  margin-top: 10px;
+  border: 1px solid #999;
+  display: none;
+}
+
+.form input {
+  border: 1px solid #999;
+  /*margin: 5px 10px;*/
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+.form td {
+  padding: 0;
+}
+
+th, td {
+ /* width: 20%;*/
+}
+
+table,
+tr,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
