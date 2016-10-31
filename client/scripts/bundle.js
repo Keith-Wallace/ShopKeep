@@ -21498,11 +21498,14 @@
 	  addStockItem: function addStockItem(event) {
 	    // var formNode = document.getElementById('form-add-item');
 	    var formNode = document.getElementById('add-item');
+	    var button = document.getElementById('btn-add-item');
 
 	    if (formNode.className.match('hide-form')) {
 	      formNode.className = formNode.className.replace('hide-form', 'show-form');
+	      button.innerHTML = 'CANCEL';
 	    } else {
 	      formNode.className = formNode.className.replace('show-form', 'hide-form');
+	      button.innerHTML = '+ ADD ITEM';
 	    }
 	  },
 	  submitNewStockItem: function submitNewStockItem(event) {
@@ -21543,7 +21546,7 @@
 	          { className: 'add-item' },
 	          _react2.default.createElement(
 	            'button',
-	            { onClick: this.addStockItem },
+	            { id: 'btn-add-item', onClick: this.addStockItem },
 	            '+ ADD ITEM'
 	          )
 	        )

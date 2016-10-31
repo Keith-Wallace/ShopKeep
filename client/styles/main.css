@@ -37,6 +37,10 @@ button {
   border-radius: 10px;
 }
 
+#btn-add-item {
+  width: 80px;
+}
+
 button:hover {
   color: #f2f3f4;
   background: #999;
