@@ -58,6 +58,7 @@ My takeaways/pain points:
 - Separate API routes into separate files: No need to keep it in the server.js file. Plus I could have called the same API (Read JSON data) function, rather than repeat the same code.
 - How I displayed the "Add Item" form: Wanted to maintain the single-page app feel, rather than redirecting to two pages.  Felt the layout could be improved. Originally had it display at the bottom but was a concern if there were 100+ items and it would fall well below the view.
 - Edit/Done Button: Struggle at first on how the final functionality would work, but happy with the results.
+- Date drop-down: Number of days available in the date drop-down does not accurately reflect the days in the selected month, due to time constraints.
 
 ## Run Application
 You can view a running application on [Heroku](https://shop-keep.herokuapp.com/).
