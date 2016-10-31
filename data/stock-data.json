@@ -5,9 +5,9 @@
     "description": "This is the item description",
     "price": 99.99,
     "available_date": {
-      "month": "June",
-      "day": "20",
-      "year": "2017"
+      "month": "November",
+      "day": "31",
+      "year": "2016"
     },
     "taxable": "YES"
   },

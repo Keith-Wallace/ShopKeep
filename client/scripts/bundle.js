@@ -23467,21 +23467,28 @@
 	    };
 	  },
 	  handleChangeValue: function handleChangeValue(event) {
-	    // console.log(event.target.value)
 	    var available_date = this.state.available_date;
 	    available_date[event.target.name] = event.target.value;
 	    this.setState({ available_date: available_date });
 	  },
+	  getAllSibilings: function getAllSibilings(node, boolean) {
+	    if (node.previousSibling === null) {
+	      node.disabled = boolean;
+	      return;
+	    }
 
-
-	  // reviseAvailableDate(event) {
-	  //   console.log('yes', event.target)
-	  // },
-
+	    node.disabled = boolean;
+	    this.getAllSibilings(node.previousSibling, boolean);
+	  },
 	  reviseAvailableDate: function reviseAvailableDate(event) {
-	    event.preventDefault();
+	    // event.preventDefault();
+	    var editBtnNode = document.getElementById('btn-edit-' + this.props.data.id);
+	    var syncBtnNode = document.getElementById('btn-sync-' + this.props.data.id);
+	    editBtnNode.style.display = 'inline-block';
+	    syncBtnNode.style.display = 'none';
 
-	    // var that = this;
+	    this.getAllSibilings(event.target.previousSibling, true);
+
 	    _axios2.default.post('/updateItem', {
 	      params: [{
 	        id: this.props.data.id,
@@ -23494,6 +23501,15 @@
 	    }).then(function (response) {
 	      console.log(response.data);
 	    });
+	  },
+	  toggleEditDate: function toggleEditDate(event) {
+	    // event.preventDefault();
+	    var editBtnNode = document.getElementById('btn-edit-' + this.props.data.id);
+	    var syncBtnNode = document.getElementById('btn-sync-' + this.props.data.id);
+	    editBtnNode.style.display = 'none';
+	    syncBtnNode.style.display = 'inline-block';
+
+	    this.getAllSibilings(event.target.previousSibling, false);
 	  },
 	  render: function render() {
 	    return _react2.default.createElement(
@@ -23524,7 +23540,8 @@
 	            defaultValue: this.state.available_date.month,
 	            name: 'month',
 	            onChange: this.handleChangeValue,
-	            className: 'monthSelect'
+	            className: 'monthSelect',
+	            disabled: true
 	          },
 	          _react2.default.createElement(
 	            'option',
@@ -23596,8 +23613,10 @@
 	          'select',
 	          {
 	            defaultValue: this.state.available_date.day,
-	            name: '.day',
-	            onChange: this.handleChangeValue
+	            name: 'day',
+	            onChange: this.handleChangeValue,
+	            className: 'daySelect',
+	            disabled: true
 	          },
 	          _react2.default.createElement(
 	            'option',
@@ -23765,7 +23784,9 @@
 	          {
 	            defaultValue: this.state.available_date.year,
 	            name: 'year',
-	            onChange: this.handleChangeValue
+	            onChange: this.handleChangeValue,
+	            className: 'yearSelect',
+	            disabled: true
 	          },
 	          _react2.default.createElement(
 	            'option',
@@ -23800,7 +23821,12 @@
 	        ),
 	        _react2.default.createElement(
 	          'button',
-	          { className: 'btn-edit-date', onClick: this.reviseAvailableDate },
+	          { id: 'btn-sync-' + this.props.data.id, className: 'btn-sync-date', onClick: this.reviseAvailableDate },
+	          'DONE'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { id: 'btn-edit-' + this.props.data.id, className: 'btn-edit-date', onClick: this.toggleEditDate },
 	          'EDIT'
 	        )
 	      ),
