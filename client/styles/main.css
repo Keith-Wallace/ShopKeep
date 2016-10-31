@@ -104,7 +104,6 @@ table.table-data {
   border-bottom: 1px solid #999;
 }
 
-
 .table-data select {
   width: 58px;
   margin: 0px 2px;
@@ -114,23 +113,23 @@ table.table-data {
   width: 50px;
 }
 
-.btn-edit-date {
+.btn-edit-date,
+.btn-sync-date {
+  width: 48px;
   margin-left: 10px;
 }
 
-/*.form {
-  margin-top: 10px;
-  border: 1px solid #999;
+.btn-sync-date {
+  display: none;
+  color: green;
+  border: 1px solid green;
 }
 
-.form input {
-  border: 1px solid #999;
-  margin: 5px 10px;
-  padding: 5px 10px;
-  border-radius: 5px;
+.btn-sync-date:hover {
+  color: #f2f3f4;
+  border: 1px solid #f2f3f4;
+  background: green;
 }
 
-.form td {
-  padding: 0;
-}*/
+
 

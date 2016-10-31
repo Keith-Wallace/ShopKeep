@@ -13,20 +13,30 @@ const StockItem = React.createClass({
   },
 
   handleChangeValue(event) {
-    // console.log(event.target.value)
     var available_date = this.state.available_date;
     available_date[event.target.name] = event.target.value;
     this.setState({available_date: available_date});
   },
 
-  // reviseAvailableDate(event) {
-  //   console.log('yes', event.target)
-  // },
+  getAllSibilings(node, boolean) {
+    if(node.previousSibling === null) {
+      node.disabled = boolean;
+      return;
+    }
+
+    node.disabled = boolean
+    this.getAllSibilings(node.previousSibling, boolean)
+  },
 
   reviseAvailableDate(event) {
-    event.preventDefault();
-    
-    // var that = this;
+    // event.preventDefault();
+    var editBtnNode = document.getElementById('btn-edit-' + this.props.data.id);
+    var syncBtnNode = document.getElementById('btn-sync-' + this.props.data.id);
+    editBtnNode.style.display = 'inline-block';
+    syncBtnNode.style.display = 'none';
+
+    this.getAllSibilings(event.target.previousSibling, true);
+
     axios.post('/updateItem', {
       params: [{
         id: this.props.data.id,
@@ -42,6 +52,17 @@ const StockItem = React.createClass({
     });
   },
 
+  toggleEditDate(event) {
+    // event.preventDefault();
+    var editBtnNode = document.getElementById('btn-edit-' + this.props.data.id);
+    var syncBtnNode = document.getElementById('btn-sync-' + this.props.data.id);
+    editBtnNode.style.display = 'none';
+    syncBtnNode.style.display = 'inline-block'
+
+    this.getAllSibilings(event.target.previousSibling, false);
+  },
+
+
   render() {
     return (
       <tr>
@@ -54,6 +75,7 @@ const StockItem = React.createClass({
             name="month"
             onChange={this.handleChangeValue}
             className="monthSelect"
+            disabled
           >
             <option value="">- Month -</option>
             <option value="January">January</option>
@@ -71,8 +93,10 @@ const StockItem = React.createClass({
           </select>
           <select
             defaultValue={this.state.available_date.day}
-            name=".day"
+            name="day"
             onChange={this.handleChangeValue}
+            className="daySelect"
+            disabled
           >
             <option value="">- Day -</option>
             <option value="1">1</option>
@@ -111,6 +135,8 @@ const StockItem = React.createClass({
             defaultValue={this.state.available_date.year}
             name="year"
             onChange={this.handleChangeValue}
+            className="yearSelect"
+            disabled
           >
             <option value="">- Year -</option>
             <option value="2016">2016</option>
@@ -119,7 +145,8 @@ const StockItem = React.createClass({
             <option value="2019">2019</option>
             <option value="2020">2020</option>
           </select>
-          <button className="btn-edit-date" onClick={this.reviseAvailableDate}>EDIT</button>
+          <button id={'btn-sync-' + this.props.data.id} className="btn-sync-date" onClick={this.reviseAvailableDate}>DONE</button>
+          <button id={'btn-edit-' + this.props.data.id} className="btn-edit-date" onClick={this.toggleEditDate}>EDIT</button>
         </td>
         <td>{this.props.data.taxable}</td>
       </tr>
