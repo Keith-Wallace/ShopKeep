@@ -52,11 +52,14 @@ const Dashboard = React.createClass({
   addStockItem(event) {
     // var formNode = document.getElementById('form-add-item');
     var formNode = document.getElementById('add-item');
+    var button = document.getElementById('btn-add-item');
 
     if(formNode.className.match('hide-form')) {
       formNode.className = formNode.className.replace('hide-form', 'show-form');
+      button.innerHTML = 'CANCEL';
     } else {
       formNode.className = formNode.className.replace('show-form', 'hide-form');
+      button.innerHTML = '+ ADD ITEM';
     }
   },
 
@@ -91,7 +94,7 @@ const Dashboard = React.createClass({
             <img src="assets/logo-shopkeep.svg" alt="ShopKeep" title="ShopKeep" />
           </div>
           <div className="add-item">
-            <button onClick={this.addStockItem}>+ ADD ITEM</button>
+            <button id="btn-add-item" onClick={this.addStockItem}>+ ADD ITEM</button>
           </div>
         </header>
         <table className="table-data">
