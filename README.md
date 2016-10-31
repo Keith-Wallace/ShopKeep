@@ -37,3 +37,41 @@ Maintainable? Are there potential pain points? Is it architecturally sound?
 
 Though at ShopKeep we use React in our front-end development, please feel free to use any
 available open-source frameworks and libraries, as required.
+
+## Notes from the Developer
+The Tech Stack for this applicaiton:
+- Front-End: React.js, HTML, and CSS
+- Server Side: Node.js with Express.js and Axios
+- Data: JSON file
+- Plugins/Dependencies: Webpack for bundling JS files (front-end), Babel for transpiling any ES6 => ES2015
+
+I wanted to try to keep this application lightweight and as few "moving parts" as possible. Mainly so it can be maintained easier and less areas for any bugs to exist in the code.
+
+For the front-end I used three components: Main.js (entry point of the application), Dashboard.js (set data from JSON file to the state and pass it down to the next component), and StockItem.js (Display each stock item from Dashboard.js). Setting up the flow of the props data can allow any additional components to be added below the Dashboard view. It also helps with maintaining the front-end as each task is split up into it's own module (or component).
+
+There are three API calls: Getting the data and rendering it to the page (/getStockData), inserting a record to the data file when adding a new stock item (/addStockItem), and updating an existing record when the availability date has been modified (/updateItem).
+
+My takeaways/pain points:
+- Seperate Component for Date Drop-down Menus: It's repeated twice in the Dashboard and StockItem view.
+- Seperate API routes into seperate Files: No need to keep it in the server.js file. Plus I could have called the same API (Read JSON data) function, rather than repeat the same code.
+- How I displayed the "Add Item" form: Wanted to maintain the single-page app feel, rather than redirecting to two pages.  Felt the layout could be inproved. Originally had it display at the bottom but was a consern if there were 100+ items and it would fall well below the view.
+- Edit/Done Button: Struggle at first on how the final functionality would work, but happy with the results.
+
+## Run Application
+You can view a running application on [Heroku](https://shop-keep.herokuapp.com/).
+
+~ or ~
+
+If you want to run this application on your local machine, fork this repo to your local repo and clone:
+```
+$ git clone https://github.com/[github-username]/ShopKeep.git
+```
+Install dependencies:
+```
+$ npm install
+```
+Run node.js server:
+```
+$ npm run start
+```
+Open in browser from localhost
